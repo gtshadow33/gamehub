@@ -7,9 +7,16 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="bg-zinc-950 text-white">
 
-    @yield('content')
+    {{-- NAVBAR GLOBAL --}}
+    @include('layouts.navbar')
+
+    {{-- CONTENIDO --}}
+    <main>
+        @yield('content')
+    </main>
 
 </body>
 </html>

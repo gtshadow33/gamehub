@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Juego;
-use App\Models\genero;
+use App\Models\Genero;
 use App\Models\Comentario;
 
 class DashboardController extends Controller

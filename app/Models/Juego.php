@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Juego extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'titulo',
         'descripcion',
@@ -22,4 +25,14 @@ class Juego extends Model
     {
         return $this->belongsToMany(Genero::class);
     }
+    public function ratings()
+{
+    return $this->hasMany(Rating::class);
 }
+
+public function averageRating()
+{
+    return $this->ratings()->avg('rating');
+}
+}
+

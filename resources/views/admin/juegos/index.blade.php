@@ -7,6 +7,18 @@
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-3xl font-black">🎮 Juegos</h1>
 
+        <form method="GET" action="{{ route('juegos.index') }}" class="flex gap-2">
+            <input type="text"
+                   name="search"
+                   value="{{ request('search') }}"
+                   placeholder="Buscar juegos..."
+                   class="px-4 py-2 rounded-xl bg-zinc-800 text-white border border-zinc-700">
+
+            <button class="bg-indigo-500 px-4 py-2 rounded-xl font-semibold">
+                Buscar
+            </button>
+        </form>
+
         <a href="{{ route('juegos.create') }}"
            class="bg-indigo-500 hover:bg-indigo-600 px-5 py-2 rounded-xl font-semibold">
             + Nuevo juego
@@ -21,11 +33,22 @@
                 <img src="{{ $juego->img }}"
                      class="rounded-xl mb-4 h-40 w-full object-cover">
 
-                <h2 class="text-xl font-bold">{{ $juego->titulo }}</h2>
+                <h2 class="text-xl font-bold">
+                    {{ $juego->titulo }}
+                </h2>
 
                 <p class="text-zinc-400 text-sm mt-2">
                     {{ $juego->descripcion }}
                 </p>
+
+                {{-- 🎮 GÉNEROS --}}
+                <div class="mt-3 flex flex-wrap gap-2">
+                    @foreach($juego->generos as $genero)
+                        <span class="bg-indigo-600 text-xs px-2 py-1 rounded-lg">
+                            {{ $genero->nombre }}
+                        </span>
+                    @endforeach
+                </div>
 
                 <div class="flex gap-2 mt-4">
 
