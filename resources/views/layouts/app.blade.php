@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameHub</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'], 'build')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-zinc-950 text-white">
