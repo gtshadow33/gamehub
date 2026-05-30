@@ -27,5 +27,5 @@ RUN chmod -R 775 storage bootstrap/cache
 
 EXPOSE 8080
 
-# 🚀 PRODUCCIÓN REAL (NO artisan serve)
+#  PRODUCCIÓN REAL (NO artisan serve)
 CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8080} -t public"]
