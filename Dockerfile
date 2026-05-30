@@ -17,17 +17,21 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN composer install --no-dev --optimize-autoloader
 
-# VITE BUILD (CRÍTICO)
+# VITE BUILD
 RUN npm install
 RUN npm run build
 
 # permisos Laravel
 RUN chmod -R 775 storage bootstrap/cache
 
-# limpiar cache Laravel (IMPORTANTE en producción)
-RUN php artisan optimize:clear
+# 🔥 LIMPIEZA TOTAL LARAVEL (CRÍTICO)
+RUN php artisan optimize:clear \
+ && php artisan config:clear \
+ && php artisan cache:clear \
+ && php artisan route:clear \
+ && php artisan view:clear
 
 EXPOSE 8080
 
-# MIGRATIONS + SEED + SERVER
+# SOLO MIGRATIONS + SERVER (SIN SEED)
 CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
