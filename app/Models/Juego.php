@@ -26,13 +26,13 @@ class Juego extends Model
         return $this->belongsToMany(Genero::class);
     }
     public function ratings()
-{
-    return $this->hasMany(Rating::class);
-}
+    {
+        return $this->hasMany(Rating::class);
+    }
 
-public function averageRating()
-{
-    return $this->ratings()->avg('rating');
-}
+    public function averageRating()
+    {
+        return $this->ratings()->avg('rating');
+    }
 }
 

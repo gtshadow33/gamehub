@@ -19,7 +19,7 @@
         <div class="space-y-4">
 
             @foreach ($comentarios as $comentario)
-                <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
+                <div class="bg-zinc-900 border mt-1 border-zinc-800 p-4 rounded-xl flex justify-between items-center">
 
                     <div>
                         <p class="text-white font-semibold">

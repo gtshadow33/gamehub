@@ -12,8 +12,16 @@ use App\Http\Controllers\JuegoPublicController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-//juegos (publicos)
-Route::get('/juegos/{juego}', [JuegoPublicController::class, 'show'])->name('juegos.show');
+// =======================
+// JUEGOS PÚBLICOS
+// =======================
+
+Route::get('/juegos/{juego}', [JuegoPublicController::class, 'show'])
+    ->name('juegos.show');
+
+// =======================
+// AUTH PROTEGIDO (USUARIO LOGUEADO)
+// =======================
 
 Route::middleware('auth')->group(function () {
 
@@ -23,39 +31,56 @@ Route::middleware('auth')->group(function () {
     Route::post('/juegos/{juego}/rating', [JuegoPublicController::class, 'rating'])
         ->name('juegos.rating');
 
-    // ELIMINAR COMENTARIO
-    Route::delete(
-        '/juegos/{juego}/comentarios/{comentario}',
-        [JuegoPublicController::class, 'destroyComentario']
-    )->name('juegos.comentario.destroy');
+    // ELIMINAR COMENTARIO (desde juego)
+    Route::delete('/juegos/{juego}/comentarios/{comentario}', [JuegoPublicController::class, 'destroyComentario'])
+        ->name('juegos.comentario.destroy');
 
+    // =======================
+    // PERFIL
+    // =======================
+
+    Route::get('/perfil', [ProfileController::class, 'index'])
+        ->name('perfil');
+
+    // ELIMINAR COMENTARIO (desde perfil)
+    Route::delete('/perfil/comentarios/{comentario}', [ProfileController::class, 'destroyComentario'])
+        ->name('perfil.comentario.destroy');
 });
 
-
+// =======================
 // AUTH
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+// =======================
+
+Route::get('/login', [AuthController::class, 'showLogin'])
+    ->name('login');
+
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/register', [AuthController::class, 'showRegister']);
+
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth');
 
-Route::get('/perfil', [ProfileController::class, 'index'])->middleware('auth');
-
+// =======================
 // ADMIN
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+// =======================
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('admin.dashboard');
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->group(function () {
 
-    Route::resource('juegos', JuegoController::class);
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('admin.dashboard');
 
-    Route::get('/comentarios', [ComentarioController::class, 'index'])
-        ->name('admin.comentarios.index');
+        Route::resource('juegos', JuegoController::class);
 
-    Route::delete('/comentarios/{comentario}', [ComentarioController::class, 'destroy'])
-        ->name('admin.comentarios.destroy');
+        Route::get('/comentarios', [ComentarioController::class, 'index'])
+            ->name('admin.comentarios.index');
 
-  Route::resource('usuarios', UsuarioController::class);
-});
+        Route::delete('/comentarios/{comentario}', [ComentarioController::class, 'destroy'])
+            ->name('admin.comentarios.destroy');
+
+        Route::resource('usuarios', UsuarioController::class);
+    });
