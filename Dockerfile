@@ -4,14 +4,13 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     git unzip zip curl nodejs npm \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql pgsql \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# IMPORTANTÍSIMO: PHP correcto ahora
-RUN php -v
 
 RUN composer install --no-dev --optimize-autoloader
 
