@@ -24,11 +24,6 @@ RUN npm run build
 # Permisos Laravel
 RUN chmod -R 775 storage bootstrap/cache
 
-# ⚠️ IMPORTANTE: limpiar cachés sin tocar DB
-RUN php artisan config:clear \
-    && php artisan route:clear \
-    && php artisan view:clear \
-    && php artisan optimize:clear
 
 EXPOSE 8080
 
