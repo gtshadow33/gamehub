@@ -24,14 +24,8 @@ RUN npm run build
 # permisos Laravel
 RUN chmod -R 775 storage bootstrap/cache
 
-# 🔥 LIMPIEZA TOTAL LARAVEL (CRÍTICO)
-RUN php artisan optimize:clear \
- && php artisan config:clear \
- && php artisan cache:clear \
- && php artisan route:clear \
- && php artisan view:clear
 
 EXPOSE 8080
 
 # SOLO MIGRATIONS + SERVER (SIN SEED)
-CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+CMD ["sh", "-c", " php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
