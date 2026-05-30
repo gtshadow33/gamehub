@@ -14,10 +14,14 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN composer install --no-dev --optimize-autoloader
 
+# 🔥 FORZAR LIMPIEZA TOTAL FRONTEND
+RUN rm -rf node_modules public/build
 
-RUN rm -rf public/build
 RUN npm install
 RUN npm run build
+
+# 🔥 ASEGURAR QUE EXISTE
+RUN ls -la public/build
 
 RUN chmod -R 775 storage bootstrap/cache
 
