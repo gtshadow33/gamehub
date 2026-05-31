@@ -9,13 +9,11 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
             ],
-            refresh: true,
+            refresh: false, // no es necesario en producción
         }),
-
         tailwindcss(),
     ],
 
-    // 🔥 IMPORTANTE para producción (Railway / hosting)
     build: {
         manifest: true,
         outDir: 'public/build',
