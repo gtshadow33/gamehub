@@ -9,14 +9,8 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
             ],
-            refresh: false, // no es necesario en producción
+            refresh: true,
         }),
         tailwindcss(),
     ],
-
-    build: {
-        manifest: true,
-        outDir: 'public/build',
-        emptyOutDir: true,
-    },
 });
