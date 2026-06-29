@@ -63,9 +63,9 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth');
 
-// =======================
+// ======================
 // ADMIN
-// =======================
+// ======================
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
